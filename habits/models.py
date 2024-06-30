@@ -11,7 +11,7 @@ class Reward(models.Model):
     description = models.TextField(verbose_name="Описание вознаграждения", **NULLABLE)
 
     def __str__(self):
-        return f"Title: {self.title}"
+        return f"{self.title}"
 
     class Meta:
         verbose_name = "Вознаграждение"
@@ -67,9 +67,7 @@ class Habit(models.Model):
     )
 
     def __str__(self):
-        return (
-            f"Action: {self.activity}\n" f"Time: {self.time}\n" f"Place: {self.place}"
-        )
+        return f"{self.activity}"
 
     class Meta:
         verbose_name = "Привычка"
