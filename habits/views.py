@@ -37,15 +37,38 @@ class HabitListAPIView(generics.ListAPIView):
     queryset = Habit.objects.all()
     pagination_class = CustomPagination
 
+    def get_queryset(self, *args, **kwargs):
+        """
+        Метод получения уроков с фильтрацией по владельцу
+        """
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_public=True)
+        return queryset
+
+
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+
+    def get_queryset(self, *args, **kwargs):
+        """
+        Метод получения уроков с фильтрацией по владельцу
+        """
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_public=True)
+        return queryset
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
+    def get_object(self):
+        return self.request.owner
+
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
     queryset = Habit.objects.all()
+
+    def get_object(self):
+        return self.request.owner
