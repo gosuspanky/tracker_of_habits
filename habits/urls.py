@@ -20,7 +20,11 @@ router.register(r"rewards", RewardViewSet, basename="reward")
 urlpatterns = [
     path("habits/create/", HabitCreateAPIView.as_view(), name="habit_create"),
     path("habits/", HabitListAPIView.as_view(), name="habit_list"),
-    path("habits/retrieve/<int:pk>", HabitRetrieveAPIView.as_view(), name="habit_retrieve"),
+    path(
+        "habits/retrieve/<int:pk>",
+        HabitRetrieveAPIView.as_view(),
+        name="habit_retrieve",
+    ),
     path("habits/update/<int:pk>", HabitUpdateAPIView.as_view(), name="habit_update"),
     path("habits/delete/<int:pk>", HabitDestroyAPIView.as_view(), name="habit_delete"),
 ] + router.urls

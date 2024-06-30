@@ -6,23 +6,23 @@ from habits.models import Habit, Reward
 @admin.register(Habit)
 class HabitAdmin(admin.ModelAdmin):
     list_display = (
-        'owner',
-        'reward',
-        'related_habit',
-        'activity',
-        'place',
-        'time',
-        'periodicity',
-        'duration',
-        'is_public',
-        'is_pleasant',
+        "owner",
+        "reward",
+        "related_habit",
+        "activity",
+        "place",
+        "time",
+        "periodicity",
+        "duration",
+        "is_public",
+        "is_pleasant",
     )
 
 
 @admin.register(Reward)
 class RewardAdmin(admin.ModelAdmin):
     list_display = (
-        'owner',
-        'title',
-        'description',
+        "owner",
+        "title",
+        "description",
     )
