@@ -19,7 +19,7 @@ class Reward(models.Model):
 
 
 class Habit(models.Model):
-    #  варианты периодичности рассылки
+    #  варианты периодичности привычки
     DAILY = "Раз в день"
     EVERY_TWO_DAYS = "Раз в два дня"
     EVERY_THREE_DAYS = "Раз в три дня"
@@ -64,6 +64,10 @@ class Habit(models.Model):
     )
     is_pleasant = models.BooleanField(
         verbose_name="Признак приятной привычки", **NULLABLE
+    )
+
+    last_action = models.DateTimeField(
+        auto_now_add=True, verbose_name="последнее сообщение", **NULLABLE
     )
 
     def __str__(self):
