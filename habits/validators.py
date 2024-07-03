@@ -27,13 +27,13 @@ class ActivityDurationValidator:
         self.field = field
 
     def __call__(self, value):
-
-        if value.get(self.field) < timedelta(seconds=0):
-            message = f"Продолжительность привычки не может быть меньше 0 секунд"
-            raise ValidationError(message)
-        elif value.get(self.field) > timedelta(seconds=120):
-            message = f"Продолжительность привычки не может превышать 120 секунд"
-            raise ValidationError(message)
+        if value.get(self.field) is not None:
+            if value.get(self.field) < timedelta(seconds=0):
+                message = f"Продолжительность привычки не может быть меньше 0 секунд"
+                raise ValidationError(message)
+            elif value.get(self.field) > timedelta(seconds=120):
+                message = f"Продолжительность привычки не может превышать 120 секунд"
+                raise ValidationError(message)
 
 
 class PleasantRelatedHabitValidator:
@@ -60,10 +60,10 @@ class NiceHabitValidator:
 
     def __call__(self, value):
         if (
-            value.get(self.field_1)
-            and value.get(self.field_2)
-            or value.get(self.field_1)
-            and value.get(self.field_3)
+                value.get(self.field_1)
+                and value.get(self.field_2)
+                or value.get(self.field_1)
+                and value.get(self.field_3)
         ):
             raise ValidationError(
                 "У приятной привычки не может быть ни вознаграждения, ни связанной привычки"

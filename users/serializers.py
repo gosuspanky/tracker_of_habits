@@ -23,4 +23,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         exclude = (
             "password",
             "last_name",
+            "chat_id",
+            "is_staff",
+            "is_superuser",
         )

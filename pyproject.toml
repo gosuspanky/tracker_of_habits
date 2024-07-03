@@ -22,7 +22,19 @@ djangorestframework-simplejwt = "^5.3.1"
 django-celery-beat = "^2.6.0"
 gevent = "^24.2.1"
 requests = "^2.32.3"
+django-cors-headers = "^4.4.0"
+drf-yasg = "^1.21.7"
+coverage = {extras = ["toml"], version = "^7.5.4"}
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+omit = [
+    # omit anything in a .local directory anywhere
+    "*/.local/*",
+    # omit everything in /usr
+    "/config/*",
+    "*/__init__.py"
+    ]
