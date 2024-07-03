@@ -40,7 +40,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -177,7 +177,7 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 # Cors
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',  # Замените на адрес вашего фронтенд-сервера
+    "http://localhost:8000",  # Замените на адрес вашего фронтенд-сервера
 ]
 
 CSRF_TRUSTED_ORIGINS = [

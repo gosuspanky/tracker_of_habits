@@ -80,7 +80,6 @@ class HabitTestCase(APITestCase):
             "time": "08:00:00",
             "duration": "120",
             "is_pleasant": False,
-
         }
 
         response = self.client.post(url, data)
@@ -111,9 +110,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(response_3.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_habit_update(self):
-        data = {
-            "activity": "test_2_update"
-        }
+        data = {"activity": "test_2_update"}
 
         response = self.client.patch(f"/habits/update/{self.habit.pk}/", data)
         data = response.json()
@@ -122,7 +119,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("activity"), "test_2_update")
 
     def test_habit_retrieve(self):
-        response = self.client.get(f'/habits/{self.habit.pk}/')
+        response = self.client.get(f"/habits/{self.habit.pk}/")
         data = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -182,7 +179,11 @@ class RewardTestCase(APITestCase):
         self.assertEqual(response_2.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_reward_create(self):
-        data = {"owner": 1, "title": "test_reward_2", "description": "test_reward_description"}
+        data = {
+            "owner": 1,
+            "title": "test_reward_2",
+            "description": "test_reward_description",
+        }
         response = self.client.post("/habits/rewards/", data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

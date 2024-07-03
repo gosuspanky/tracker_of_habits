@@ -60,10 +60,10 @@ class NiceHabitValidator:
 
     def __call__(self, value):
         if (
-                value.get(self.field_1)
-                and value.get(self.field_2)
-                or value.get(self.field_1)
-                and value.get(self.field_3)
+            value.get(self.field_1)
+            and value.get(self.field_2)
+            or value.get(self.field_1)
+            and value.get(self.field_3)
         ):
             raise ValidationError(
                 "У приятной привычки не может быть ни вознаграждения, ни связанной привычки"
