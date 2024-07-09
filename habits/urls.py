@@ -9,7 +9,7 @@ from habits.views import (
     HabitListAPIView,
     HabitRetrieveAPIView,
     HabitUpdateAPIView,
-    HabitDestroyAPIView,
+    HabitDestroyAPIView, HabitIsPublicListAPIView,
 )
 
 app_name = HabitsConfig.name
@@ -20,6 +20,7 @@ router.register(r"rewards", RewardViewSet, basename="reward")
 urlpatterns = [
     path("create/", HabitCreateAPIView.as_view(), name="habit_create"),
     path("", HabitListAPIView.as_view(), name="habit_list"),
+    path("public_list/", HabitIsPublicListAPIView.as_view(), name="habit_is_public"),
     path(
         "<int:pk>/",
         HabitRetrieveAPIView.as_view(),

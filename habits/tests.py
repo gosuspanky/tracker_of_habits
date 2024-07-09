@@ -138,7 +138,11 @@ class HabitTestCase(APITestCase):
         self.assertEqual(Habit.objects.all().count(), 0)
 
     def test_habit_list(self):
+        url = reverse("habits:habit_delete", args=(5,))
+        self.client.delete(url)
+
         url = reverse("habits:habit_list")
+        print(url)
 
         result = {
             "count": 0,
@@ -180,7 +184,7 @@ class RewardTestCase(APITestCase):
 
     def test_reward_create(self):
         data = {
-            "owner": 1,
+            "owner": self.user.pk,
             "title": "test_reward_2",
             "description": "test_reward_description",
         }
