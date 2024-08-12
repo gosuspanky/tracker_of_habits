@@ -1,0 +1,80 @@
+networks:
+  habit_network:
+    driver: bridge
+
+services:
+  redis:
+    image: redis
+    networks:
+      - habit_network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+  db:
+    image: postgres:16-alpine
+    restart: on-failure
+    networks:
+      - habit_network
+    env_file:
+      - .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    healthcheck:
+      test: ['CMD-SHELL', '-c', 'pg_isready -U $POSTGRES_USER']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    tty: true
+    command: sh -c 'python manage.py migrate && python manage.py runserver 0.0.0.0:8000'
+    networks:
+      - habit_network
+    ports:
+      - '8000:8000'
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  celery:
+    build: .
+    networks:
+      - habit_network
+    tty: true
+    command: celery -A config worker -l info -P gevent
+    restart: on-failure
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+      - app
+
+  celery_beat:
+    build: .
+    networks:
+      - habit_network
+    tty: true
+    command: celery -A config beat -l info
+    restart: on-failure
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+      - app
+
+volumes:
+  pg_data:
